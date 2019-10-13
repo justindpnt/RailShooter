@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
@@ -17,8 +18,16 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
+        Processtranslation();
+        ProcessRotation();
+    }
+
+    private void ProcessRotation() {
+        transform.localRotation = Quaternion.Euler(-30f, 30f, 0f); // Hardcoded for now. Understanding the order
+    }
+
+    private void Processtranslation() {
         float xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
         float xOffset = xThrow * Speed * Time.deltaTime;
         float yThrow = CrossPlatformInputManager.GetAxis("Vertical");
