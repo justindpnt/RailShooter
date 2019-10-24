@@ -11,6 +11,13 @@ public class Player : MonoBehaviour
     [Tooltip("In m")] [SerializeField] float xRange = 5f;
     [Tooltip("In m")] [SerializeField] float yRange = 5f;
 
+    [SerializeField] float positionPitchFactor = -5f;
+    [SerializeField] float controlPitchFactor = -20f;
+    [SerializeField] float positionYawFactor = 5f;
+    [SerializeField] float positionRollFactor = -20f;
+
+    float xThrow, yThrow;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +31,20 @@ public class Player : MonoBehaviour
     }
 
     private void ProcessRotation() {
-        transform.localRotation = Quaternion.Euler(-30f, 30f, 0f); // Hardcoded for now. Understanding the order
+        float pitchDueToPosition = transform.localPosition.y * positionPitchFactor;
+        float pitchDueToControlThrow = yThrow * controlPitchFactor;
+        float pitch = pitchDueToPosition + pitchDueToControlThrow;
+
+        float yaw = transform.localPosition.x * positionYawFactor;
+
+        float roll = xThrow * positionRollFactor; 
+        transform.localRotation = Quaternion.Euler(pitch, yaw, roll); // Hardcoded for now. Understanding the order
     }
 
     private void Processtranslation() {
-        float xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
+        xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
         float xOffset = xThrow * Speed * Time.deltaTime;
-        float yThrow = CrossPlatformInputManager.GetAxis("Vertical");
+        yThrow = CrossPlatformInputManager.GetAxis("Vertical");
         float yOffset = yThrow * Speed * Time.deltaTime;
 
         float rawXPos = transform.localPosition.x + xOffset;
