@@ -4,35 +4,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     //Cached references
-    [Tooltip("In ms^-1")][SerializeField] float Speed = 4000f;
+    [Header("General")]
+    [Tooltip("In ms^-1")][SerializeField] float controlSpeed = 4000f;
     [Tooltip("In m")] [SerializeField] float xRange = 5f;
     [Tooltip("In m")] [SerializeField] float yRange = 5f;
 
+    [Header("Screen-position Based")]
     [SerializeField] float positionPitchFactor = -5f;
     [SerializeField] float controlPitchFactor = -20f;
+
+    [Header("Control-throw Based")]
     [SerializeField] float positionYawFactor = 5f;
     [SerializeField] float positionRollFactor = -20f;
 
     float xThrow, yThrow;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    void OnTriggerEnter(Collider other) {
-        print("Player triggered something");
-    }
-
+    bool isControlEnabled = true;
 
     // Update is called once per frame
     void Update() {
-        Processtranslation();
-        ProcessRotation();
+        if (isControlEnabled) {
+            Processtranslation();
+            ProcessRotation();
+        }
+    }
+
+    void OnPlayerDeath() {  //called by string reference
+        isControlEnabled = false;
     }
 
     private void ProcessRotation() {
@@ -48,9 +48,9 @@ public class Player : MonoBehaviour
 
     private void Processtranslation() {
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
-        float xOffset = xThrow * Speed * Time.deltaTime;
+        float xOffset = xThrow * controlSpeed * Time.deltaTime;
         yThrow = CrossPlatformInputManager.GetAxis("Vertical");
-        float yOffset = yThrow * Speed * Time.deltaTime;
+        float yOffset = yThrow * controlSpeed * Time.deltaTime;
 
         float rawXPos = transform.localPosition.x + xOffset;
         float clampedXPos = Mathf.Clamp(rawXPos, -xRange, xRange);
