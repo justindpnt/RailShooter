@@ -5,9 +5,19 @@ using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour
 {
-    // Music should persist through scenes
+    // Music should persist through scenes. Singleton
     private void Awake() 
     {
-        DontDestroyOnLoad(gameObject);
+        int numMusicPlayer = FindObjectsOfType<MusicPlayer>().Length;
+
+        if(numMusicPlayer > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
     }
 }
