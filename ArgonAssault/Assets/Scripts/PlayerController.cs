@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
+//Player ship movement functionality
 public class PlayerController : MonoBehaviour
 {
     //Cached references
@@ -23,19 +24,25 @@ public class PlayerController : MonoBehaviour
     float xThrow, yThrow;
     bool isControlEnabled = true;
 
-    // Update is called once per frame
-    void Update() {
-        if (isControlEnabled) {
+    //Update is called once per frame
+    void Update() 
+    {
+        //If alive
+        if (isControlEnabled)
+        {
             Processtranslation();
             ProcessRotation();
         }
     }
 
-    void OnPlayerDeath() {  //called by string reference
-        isControlEnabled = false;
+    void OnPlayerDeath() //called by string reference
+    {  
+        isControlEnabled = false; 
     }
 
-    private void ProcessRotation() {
+    //Handle the rotation of the ship based off the screen position and joystick input
+    private void ProcessRotation() 
+    {
         float pitchDueToPosition = transform.localPosition.y * positionPitchFactor;
         float pitchDueToControlThrow = yThrow * controlPitchFactor;
         float pitch = pitchDueToPosition + pitchDueToControlThrow;
@@ -43,10 +50,14 @@ public class PlayerController : MonoBehaviour
         float yaw = transform.localPosition.x * positionYawFactor;
 
         float roll = xThrow * positionRollFactor; 
-        transform.localRotation = Quaternion.Euler(pitch, yaw, roll); // Hardcoded for now. Understanding the order
+
+        transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
     }
 
-    private void Processtranslation() {
+    //Handle the movement of the ship based off the joystick input
+    //Supports multiple controller inputs
+    private void Processtranslation() 
+    {
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
         float xOffset = xThrow * controlSpeed * Time.deltaTime;
         yThrow = CrossPlatformInputManager.GetAxis("Vertical");

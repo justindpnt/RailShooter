@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//Music functionality
 public class MusicPlayer : MonoBehaviour
 {
     // Music should persist through scenes. Singleton

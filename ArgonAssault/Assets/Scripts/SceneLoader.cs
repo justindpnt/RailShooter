@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Scene laod manager
 public class SceneLoader : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start() {
+    //Load the first scene
+    void Start() 
+    {
         Invoke("LoadFirstScene", 2f);
     }
 
-    // Manager to load the main game
-    void LoadFirstScene() {
+    //Manager to load the main game
+    void LoadFirstScene() 
+    {
         SceneManager.LoadScene(1);
     }
 }
