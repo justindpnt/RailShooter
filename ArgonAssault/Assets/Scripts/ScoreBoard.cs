@@ -6,9 +6,6 @@ using TMPro;
 //To enable the score functionality
 public class ScoreBoard : MonoBehaviour
 {
-    //Same score no matter the enemy
-    [SerializeField] int scorePerHit = 12;
-
     int score = 0;
     TMP_Text textScore;
 
@@ -19,9 +16,9 @@ public class ScoreBoard : MonoBehaviour
         textScore.text = score.ToString();
     }
 
-    public void ScoreHit() 
+    public void ScoreHit(int scoreIncrease) 
     {
-        score = score + scorePerHit;
+        score = score + scoreIncrease;
         textScore.text = score.ToString();
     }
 }

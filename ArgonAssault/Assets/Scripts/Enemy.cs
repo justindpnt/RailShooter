@@ -8,11 +8,19 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] GameObject deathFX;
     [SerializeField] Transform parent;
+    [SerializeField] int scorePerHit = 12;
+
+    ScoreBoard scoreBoard;
 
     //Start is called before the first frame update
-    void Start()
+    void Start() {
+        AddBoxCollider();
+        scoreBoard = FindObjectOfType<ScoreBoard>();
+    }
+
+    //Initialize box collider on enemy ship
+    private void AddBoxCollider()
     {
-        //Initialize box collider on enemy ship
         Collider boxCollider = gameObject.AddComponent<BoxCollider>();
         boxCollider.isTrigger = false;
     }
@@ -20,6 +28,7 @@ public class Enemy : MonoBehaviour
     //Handle the collison between the gun rays and the enemy ship
     void OnParticleCollision(GameObject other) 
     {
+        scoreBoard.ScoreHit(scorePerHit);
         GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
         fx.transform.parent = parent;
         Destroy(gameObject);   

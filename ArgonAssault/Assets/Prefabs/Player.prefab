@@ -4951,7 +4951,7 @@ PrefabInstance:
     - target: {fileID: 7486030119883992971, guid: 00496c9c136be5946ac9ed74c1aa68cd,
         type: 3}
       propertyPath: m_Name
-      value: Bullets (1)
+      value: Gun Left
       objectReference: {fileID: 0}
     - target: {fileID: 7486030119883992968, guid: 00496c9c136be5946ac9ed74c1aa68cd,
         type: 3}
@@ -5031,7 +5031,7 @@ PrefabInstance:
     - target: {fileID: 7486030119883992971, guid: 00496c9c136be5946ac9ed74c1aa68cd,
         type: 3}
       propertyPath: m_Name
-      value: Bullets
+      value: Gun Right
       objectReference: {fileID: 0}
     - target: {fileID: 7486030119883992968, guid: 00496c9c136be5946ac9ed74c1aa68cd,
         type: 3}
