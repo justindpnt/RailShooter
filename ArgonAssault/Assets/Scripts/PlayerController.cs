@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     //Cached references
     [Header("General")]
-    [Tooltip("In ms^-1")][SerializeField] float controlSpeed = 4000f;
+    [Tooltip("In ms^-1")] [SerializeField] float controlSpeed = 4000f;
     [Tooltip("In m")] [SerializeField] float xRange = 5f;
     [Tooltip("In m")] [SerializeField] float yRange = 5f;
     [SerializeField] GameObject[] guns;
